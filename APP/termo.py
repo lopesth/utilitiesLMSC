@@ -1,8 +1,6 @@
 from numpy import array, diff, log, power, arange
 
-from partFunction import *
-
-from differential import FiniteDifferenceDerivative
+from APP.partFunction import *
 
 from matplotlib.pyplot import plot, show
 

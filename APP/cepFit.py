@@ -31,8 +31,17 @@ class CEPfitting(object):
             self.__guess = [randint(1, 2) for i in range(6)]
             self.__func = self.rydberg6
         database = read_csv(csvFile)
-        self.__xData = database.iloc[:,xcol] * xCorrection
         self.__yData = database.iloc[:,ycol] * yCorrection
+        c = 0
+        for y in self.__yData:
+            if y < 0:
+                break
+            c += 1
+        self.__yData = self.__yData[c-1:]
+        self.__xData = database.iloc[:,xcol] * xCorrection
+        self.__xData = self.__xData[c-1:]
+
+
             
     def LJ_Improved_ReqDe(self, x, beta):
         n_r = (beta + 4*((x/self.__Re)**2))
@@ -51,10 +60,13 @@ class CEPfitting(object):
         return self.__popt
     
     def getOptimizedValues(self):
-        return self.__func(self.__xData, *self.__popt)
+        return self.__xData, self.__func(self.__xData, *self.__popt)
 
     def getReducedChi2(self):
         return chisquare(self.getOptimizedValues(), self.__yData)[0] / (len(self.__xData) - len(self.__popt))
+
+    def getOriginalValues(self):
+        return self.__xData, self.__yData
 
 if __name__ == "__main__":
     
