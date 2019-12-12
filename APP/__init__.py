@@ -14,3 +14,4 @@ __status__ = "Development"
 
 from .partFunction import *
 from .termo import *
+from .cepFit import *
