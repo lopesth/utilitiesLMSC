@@ -75,7 +75,7 @@ class Qelet(object):
     
     def __calc(self):
         for T in self.__temperatures:
-            self.__q.append(self.__multiplicity * exp((-self.__De)/(self.__R * T)))    
+            self.__q.append(self.__multiplicity * exp((self.__De)/(self.__R * T)))    
 
 class Qrot(object):
     
